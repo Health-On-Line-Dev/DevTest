@@ -30,11 +30,20 @@ namespace HealthOnlone.DevTest.CurrencyViewer
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+           
             // My registrations
-            services.AddTransient<IRepository, Repository>();
+            services.AddSingleton<IRepository, Repository>();
             services.TryAdd(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(Logger<>)));
         }
 
@@ -55,6 +64,7 @@ namespace HealthOnlone.DevTest.CurrencyViewer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseCors("CorsPolicy");
 
             app.UseMvc(routes =>
             {

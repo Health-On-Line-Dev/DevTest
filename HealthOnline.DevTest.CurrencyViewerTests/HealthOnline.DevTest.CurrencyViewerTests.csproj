@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HealthOnlone.DevTest.CurrencyViewer\HealthOnlone.DevTest.CurrencyViewer.csproj" />
+    <ProjectReference Include="..\HealthOnlone.DevTest.CurrencyViewer\HealthOnline.DevTest.CurrencyViewer.csproj" />
   </ItemGroup>
 
 </Project>

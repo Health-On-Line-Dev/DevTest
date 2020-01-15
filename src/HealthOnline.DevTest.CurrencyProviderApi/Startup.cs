@@ -25,6 +25,16 @@ namespace HealthOnline.DevTest.CurrencyProviderApi
             {
                 c.SwaggerDoc("v1", new Info { Title = "Currency API", Version = "v1" });
             });
+
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +54,8 @@ namespace HealthOnline.DevTest.CurrencyProviderApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Currency API V1");
             });
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
             app.UseMvc();

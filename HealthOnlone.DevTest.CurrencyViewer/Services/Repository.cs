@@ -11,34 +11,41 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Services
     /// </summary>
     public class Repository : IRepository
     {
+        // static data is just for the initial version
+        // v2 would involve getting data from a database
+        private static IList<CurrencyDataSourceModel> _dataSources;
+
+        private static IList<CurrencyDataSourceModel> Datasources
+        {
+            get {
+
+                if(_dataSources == null || _dataSources.Count == 0)
+                {
+                    _dataSources = new List<CurrencyDataSourceModel>();
+                    _dataSources.Add(new CurrencyDataSourceModel
+                    {
+                        DataSourceName = "Currency",
+                        DataSourceUrl = "localhost:44374/api/v1/Currency"
+                    });
+
+                    _dataSources.Add(new CurrencyDataSourceModel
+                    {
+                        DataSourceName = "Exchange",
+                        DataSourceUrl = "localhost:44382/api/v1/Exchange"
+                    });
+                }
+
+                return _dataSources;
+            }
+        }
+
         /// <summary>
         /// Gets the currently available data sources
         /// </summary>
         /// <returns>A list of data sources</returns>
         public IList<CurrencyDataSourceModel> GetCurrencyDataSourceModels()
         {
-            try
-            {
-                // for now use dummy data
-                var sources = new List<CurrencyDataSourceModel>();
-
-                sources.Add(new CurrencyDataSourceModel
-                {
-                    DataSourceName = "Currency",
-                    DataSourceUrl = "localhost:44374/api/v1/Currency"
-                });
-
-                sources.Add(new CurrencyDataSourceModel
-                {
-                    DataSourceName = "Exchange",
-                    DataSourceUrl = "localhost:44374/api/v1/Exchange"
-                });
-
-                return sources;
-            } catch (Exception e)
-            {
-                throw e;
-            }            
+             return Datasources;          
         }
     }
 }
