@@ -1,7 +1,11 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function ViewModel() {
 
-// Write your JavaScript code.
+    var self = this;
+    self.datasources = ko.observableArray();
+}
+
+var model = new ViewModel();
+
 $(document).ready(function () {
 
     //Get the data sources from our api
@@ -12,19 +16,13 @@ $(document).ready(function () {
         this.value = data.value;
     }
 
-    function currencySource(data) {
-        this.name = data.name;
+    //function currencySource(data) {
+    //    this.name = data.name;
 
-        this.currencies = ko.observableArray(data.currencies);
-    }
+    //    //this.currencies = ko.observableArray(data.currencies);
+    //}
 
-    function ViewModel() {
-
-        var self = this
-        var datasources = ko.observableArray()
-    }
-
-    var model = new ViewModel();
+    ko.applyBindings(model);
     getDataSources();
 
     function getDataSources() {
@@ -37,20 +35,38 @@ $(document).ready(function () {
     }
 
     function getCurrencyRatesFromSource(source) {
+
         $.ajax({
             url: "https://" + source.dataSourceUrl,
             type: "GET",
             crossDomain: true,
             dataType: "json",
             source: source,
-            success: handleCurrencyFromSource,
+            success: function (data) { handleCurrencyFromSource(data, source) },
             error: function (xhr, status) {
                 alert("failed to get rates")
             }
         });
 
-        function handleCurrencyFromSource(data) {
-            
+        function handleCurrencyFromSource(data, source) {
+            var currenciesFromProvider = {
+                source: source.dataSourceName,
+                currencies : []
+            };
+
+            var keys = Object.keys(data[0]);
+
+            for(var i = 0; i < data.length; i++) {
+
+                var thisCurrency = {
+                    name: data[i][keys[0]],
+                    rate: data[i][keys[2]]
+                }
+
+                currenciesFromProvider.currencies.push(thisCurrency);
+            }
+
+            model.datasources.push(currenciesFromProvider);
         }
     }
 

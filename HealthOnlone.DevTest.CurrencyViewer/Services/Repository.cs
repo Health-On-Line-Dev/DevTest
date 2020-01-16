@@ -21,18 +21,20 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Services
 
                 if(_dataSources == null || _dataSources.Count == 0)
                 {
-                    _dataSources = new List<CurrencyDataSourceModel>();
-                    _dataSources.Add(new CurrencyDataSourceModel
+                    _dataSources = new List<CurrencyDataSourceModel>
                     {
-                        DataSourceName = "Currency",
-                        DataSourceUrl = "localhost:44374/api/v1/Currency"
-                    });
+                        new CurrencyDataSourceModel
+                        {
+                            DataSourceName = "Currency",
+                            DataSourceUrl = "localhost:44374/api/v1/Currency"
+                        },
 
-                    _dataSources.Add(new CurrencyDataSourceModel
-                    {
-                        DataSourceName = "Exchange",
-                        DataSourceUrl = "localhost:44382/api/v1/Exchange"
-                    });
+                        new CurrencyDataSourceModel
+                        {
+                            DataSourceName = "Exchange",
+                            DataSourceUrl = "localhost:44382/api/v1/Exchange"
+                        }
+                    };
                 }
 
                 return _dataSources;
