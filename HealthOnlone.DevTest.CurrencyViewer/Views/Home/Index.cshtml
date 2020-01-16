@@ -22,7 +22,8 @@
             </li>
         </ul>
     </div>
-    <div class="container CVproviders">
+    @* Panel for showing currencies from all providers *@
+    <div id="CVproviders" class="container" @*style="display:none"*@>
         <div data-bind="foreach: datasources">
             <div class="row">
                 <h1 class="col" data-bind="text: $data.source"></h1>
@@ -34,6 +35,20 @@
                     </div>                    
                 </div>
             </div>            
+        </div>
+    </div>
+
+    @* Panel for showing the average *@
+    <div id="averages" class="container">
+        <div class="row">
+            <h1 class="col">Averages</h1>
+            <div class="col" data-bind="foreach: $data.listOfCurrencies()">
+                <div class="row">
+                    <span data-bind="text: $data"></span>
+                    :
+                    <span data-bind="text: getAverage($data)"></span>
+                </div>
+            </div>
         </div>
     </div>
 
