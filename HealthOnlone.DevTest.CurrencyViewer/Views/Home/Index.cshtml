@@ -5,25 +5,25 @@
 <div class="text-center">
     <h1 class="display-4">"Welcome"</h1>
 </div>
-<div id="container" class="container alert-info">
-    <div class="row">
+<div id="container" class="container border">
+    <div class="row mb-3">
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" href="#">Compare</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Convert</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Calculate</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a class="nav-link" href="#">Average</a>
             </li>
         </ul>
     </div>
     @* Panel for showing currencies from all providers *@
-    <div id="CVproviders" class="container" @*style="display:none"*@>
+    <div id="compare" class="container mb-3" style="display:none">
         <div data-bind="foreach: datasources">
             <div class="row">
                 <h1 class="col" data-bind="text: $data.source"></h1>
@@ -31,15 +31,54 @@
                     <div class="row">
                         <span data-bind="text: $data.name"></span>
                         :
-                        <span data-bind="text: $data.rate"></span>
-                    </div>                    
+                        <span data-bind="text: ($data.rate).toFixed(2)"></span>
+                    </div>
                 </div>
-            </div>            
+            </div>
+        </div>
+    </div>
+
+    @* Panel for doing calculations *@
+    <div id="calculate" class="container mb-3">
+        <div class="row">
+            <div class="col">
+                Convert between  <select id="currency1" data-bind="options: $data.listOfCurrencies, value: selectedCurrency1"></select> and
+                <select id="currency2" data-bind="options: $data.listOfCurrencies, value: selectedCurrency2"></select>
+            </div>
+            <div class="col">
+                @*<div data-bind="foreach: datasources">
+                    <div class="row">
+                        <span data-bind="text: $data.source"></span>
+                        :
+                        <span data-bind="text: convertBetweenProvider($data)"></span>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+
+
+    @* Panel for doing conversation rates *@
+    <div id="convert" class="container mb-3" style="display:none">
+        <div class="row">
+            <div class="col">
+                Convert between  <select data-bind="options: $data.listOfCurrencies, value: selectedCurrency1"></select> and
+                <select data-bind="options: $data.listOfCurrencies, value: selectedCurrency2"></select>
+            </div>
+            <div class="col">
+                <div data-bind="foreach: datasources">
+                    <div class="row">
+                        <span data-bind="text: $data.source"></span>
+                        :
+                        <span data-bind="text: convertBetweenProvider($data)"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     @* Panel for showing the average *@
-    <div id="averages" class="container">
+    <div id="average" class="container mb-3" style="display:none">
         <div class="row">
             <h1 class="col">Averages</h1>
             <div class="col" data-bind="foreach: $data.listOfCurrencies()">
@@ -51,5 +90,4 @@
             </div>
         </div>
     </div>
-
 </div>

@@ -3,6 +3,16 @@
     var self = this;
     self.datasources = ko.observableArray();
     self.listOfCurrencies = ko.observableArray();
+
+    // for comparisons
+    self.selectedCurrency1 = ko.observable();
+    self.selectedCurrency2 = ko.observable();
+
+    // for calculations
+    self.selectedProvider = ko.observable();
+    self.selectedCurrencyForCalculation1 = ko.observable();
+    self.selectedCurrencyForCalculation2 = ko.observable();
+
 }
 
 var model = new ViewModel();
@@ -99,4 +109,29 @@ function getAverage(currencyKey) {
     }
 
     return "waiting for data";
+}
+
+// converts between 2 currencies for each provider
+function convertBetweenProvider(data) {
+
+    var currency1 = 0;
+    var currency2 = 0;
+
+    for (var i = 0; i < data.currencies.length; i++) {
+
+        if (currency1 < 0 && currency2 < 0) {
+            break; // all currencies matched, get out of the loop
+        }
+
+        if (data.currencies[i].name === model.selectedCurrency1()) {
+            currency1 = data.currencies[i].rate;
+        }
+
+        if (data.currencies[i].name === model.selectedCurrency2()) {
+            currency2 = data.currencies[i].rate;
+        }
+
+    }
+
+    return currency2 > 0 ? (currency1 / currency2).toFixed(4) : 0;
 }
