@@ -3,6 +3,7 @@
     var self = this;
     self.datasources = ko.observableArray();
     self.listOfCurrencies = ko.observableArray();
+    self.listOfProviders = ko.observableArray();
 
     // for comparisons
     self.selectedCurrency1 = ko.observable();
@@ -10,7 +11,8 @@
 
     // for calculations
     self.selectedProvider = ko.observable();
-    self.selectedCurrencyForCalculation1 = ko.observable();
+    self.amountForCalculation = ko.observable();
+    self.selectedCurrencyForCalculation = ko.observable();
     self.selectedCurrencyForCalculation2 = ko.observable();
 
 }
@@ -22,7 +24,7 @@ $(document).ready(function () {
     //Get the data sources from our api
     var datasources;
 
-    var listOfCurrencies = [];
+    //var listOfCurrencies = [];
 
     ko.applyBindings(model);
     getDataSources();
@@ -79,6 +81,8 @@ $(document).ready(function () {
                 model.listOfCurrencies.push(deduplicatedList[i]);
             }
 
+            model.listOfProviders.push(currenciesFromProvider.source);
+
         }
     }
 
@@ -105,7 +109,7 @@ function getAverage(currencyKey) {
             }
         }
 
-        return accumulator / numberOfDataSources;
+        return (accumulator / numberOfDataSources).toFixed(2);
     }
 
     return "waiting for data";
@@ -134,4 +138,49 @@ function convertBetweenProvider(data) {
     }
 
     return currency2 > 0 ? (currency1 / currency2).toFixed(4) : 0;
+}
+
+function calculate(amount, source, currency1, currency2) {
+
+    var rate1 = 0;
+    var rate2 = 0;
+
+    if (amount() >= 0) {
+        for (var i = 0; i < model.datasources().length; i++) {
+            if (model.datasources()[i].source === source()) {
+
+                for (var j = 0; j < model.datasources()[i].currencies.length; j++) {
+                    if (model.datasources()[i].currencies[j].name === currency1()) {
+                        rate1 = model.datasources()[i].currencies[j].rate;
+                    }   
+
+                    if (model.datasources()[i].currencies[j].name === currency2()) {
+                        rate2 = model.datasources()[i].currencies[j].rate;
+                    }   
+                }
+                break;
+            }
+        }
+
+        if (rate1 > 0) {
+            return (amount() * (rate2 / rate1)).toFixed(2);
+        }        
+    }
+
+    return 0;
+}
+
+function changeTabs(element) {
+
+    var tabs = $("a.nav-link.currencyTab");
+
+    for (var i = 0; i < tabs.length; i++) {
+        if (tabs[i].id === element.id) {
+            $("#"+tabs[i].id+"Panel").show();
+            $(tabs[i]).addClass("active");
+        } else {
+            $("#" + tabs[i].id + "Panel").hide();
+            $(tabs[i]).removeClass("active");
+        }
+    }
 }

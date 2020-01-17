@@ -3,27 +3,28 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">"Welcome"</h1>
+    <h1 class="display-4">Currency Converter Service</h1>
+    <p>Developed by Wayne Atkinson Young</p>
 </div>
 <div id="container" class="container border">
     <div class="row mb-3">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Compare</a>
+                <a id="compare" class="nav-link active currencyTab" onclick="changeTabs(this)" href="#">Compare</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Convert</a>
+            <li class="nav-item currencyTab">
+                <a id="convert" class="nav-link currencyTab" onclick="changeTabs(this)" href="#" >Convert</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Calculate</a>
+            <li class="nav-item currencyTab">
+                <a id="calculate" class="nav-link currencyTab" onclick="changeTabs(this)" href="#">Calculate</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Average</a>
+            <li class="nav-item currencyTab">
+                <a id="average" class="nav-link currencyTab" onclick="changeTabs(this)" href="#">Average</a>
             </li>
         </ul>
     </div>
     @* Panel for showing currencies from all providers *@
-    <div id="compare" class="container mb-3" style="display:none">
+    <div id="comparePanel" class="container mb-3">
         <div data-bind="foreach: datasources">
             <div class="row">
                 <h1 class="col" data-bind="text: $data.source"></h1>
@@ -38,28 +39,8 @@
         </div>
     </div>
 
-    @* Panel for doing calculations *@
-    <div id="calculate" class="container mb-3">
-        <div class="row">
-            <div class="col">
-                Convert between  <select id="currency1" data-bind="options: $data.listOfCurrencies, value: selectedCurrency1"></select> and
-                <select id="currency2" data-bind="options: $data.listOfCurrencies, value: selectedCurrency2"></select>
-            </div>
-            <div class="col">
-                @*<div data-bind="foreach: datasources">
-                    <div class="row">
-                        <span data-bind="text: $data.source"></span>
-                        :
-                        <span data-bind="text: convertBetweenProvider($data)"></span>
-                    </div>
-                </div>*@
-            </div>
-        </div>
-    </div>
-
-
     @* Panel for doing conversation rates *@
-    <div id="convert" class="container mb-3" style="display:none">
+    <div id="convertPanel" class="container mb-3" style="display:none">
         <div class="row">
             <div class="col">
                 Convert between  <select data-bind="options: $data.listOfCurrencies, value: selectedCurrency1"></select> and
@@ -77,8 +58,28 @@
         </div>
     </div>
 
+    @* Panel for doing calculations *@
+    <div id="calculatePanel" class="container mb-3" style="display:none">
+        <div class="row">
+            <div class="col">
+                Convert <input type="number" min="0" data-bind="value: amountForCalculation" />
+                <select data-bind="options: $data.listOfCurrencies, value: selectedCurrencyForCalculation"></select>
+                into
+                <select data-bind="options: $data.listOfCurrencies, value: selectedCurrencyForCalculation2"></select>
+                With
+                <select data-bind="options: $data.listOfProviders, value: selectedProvider"></select>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <span data-bind="text: calculate($data.amountForCalculation, $data.selectedProvider, $data.selectedCurrencyForCalculation,$data.selectedCurrencyForCalculation2)"></span>
+                    <span data-bind="text: selectedCurrencyForCalculation2"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @* Panel for showing the average *@
-    <div id="average" class="container mb-3" style="display:none">
+    <div id="averagePanel" class="container mb-3" style="display:none">
         <div class="row">
             <h1 class="col">Averages</h1>
             <div class="col" data-bind="foreach: $data.listOfCurrencies()">
