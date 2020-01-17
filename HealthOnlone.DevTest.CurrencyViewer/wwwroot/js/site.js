@@ -21,23 +21,19 @@ var model = new ViewModel();
 
 $(document).ready(function () {
 
-    //Get the data sources from our api
-    var datasources;
-
-    //var listOfCurrencies = [];
-
     ko.applyBindings(model);
     getDataSources();
 
+    // gets a list of APIs from our service
     function getDataSources() {
         $.ajax("/api/v1/datasources").done(function (data) {
-            datasources = data
-            refreshCurrencies(datasources);
+            refreshCurrencies(data);
         }).fail(function () {
             console.log("failed to get data sources")
         });
     }
 
+    // source is a url that provides currency data
     function getCurrencyRatesFromSource(source) {
 
         $.ajax({
@@ -52,6 +48,7 @@ $(document).ready(function () {
             }
         });
 
+        // processes the currency data from a  provider and maps it into the viewModel
         function handleCurrencyFromSource(data, source) {
             var currenciesFromProvider = {
                 source: source.dataSourceName,
@@ -86,6 +83,7 @@ $(document).ready(function () {
         }
     }
 
+    // iterates through the sources to get rates
     function refreshCurrencies(datasources) {
         for (var i = 0; i < datasources.length; i++) {
             getCurrencyRatesFromSource(datasources[i])
@@ -140,6 +138,7 @@ function convertBetweenProvider(data) {
     return currency2 > 0 ? (currency1 / currency2).toFixed(4) : 0;
 }
 
+// calculates an output amount given an input unit, a from and to currency and a provider
 function calculate(amount, source, currency1, currency2) {
 
     var rate1 = 0;
@@ -169,7 +168,7 @@ function calculate(amount, source, currency1, currency2) {
 
     return 0;
 }
-
+// tab navigation
 function changeTabs(element) {
 
     var tabs = $("a.nav-link.currencyTab");

@@ -1,8 +1,5 @@
 ﻿using HealthOnlone.DevTest.CurrencyViewer.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HealthOnlone.DevTest.CurrencyViewer.Services
 {
@@ -16,5 +13,17 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Services
         /// </summary>
         /// <returns>A List of data sources</returns>
         IList<CurrencyDataSourceModel> GetCurrencyDataSourceModels();
+
+        /// <summary>
+        /// Updates the data source. If the GUID is empty it will create a new one
+        /// </summary>
+        /// <param name="source">The data source to create or update</param>
+        void UpdateDataSource(CurrencyDataSourceModel source);
+
+        /// <summary>
+        /// Removes a data source
+        /// </summary>
+        /// <param name="source">The datasource to remove</param>
+        void DeleteDataSource(CurrencyDataSourceModel source);
     }
 }

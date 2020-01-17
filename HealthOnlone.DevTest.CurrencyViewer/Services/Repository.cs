@@ -47,7 +47,24 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Services
         /// <returns>A list of data sources</returns>
         public IList<CurrencyDataSourceModel> GetCurrencyDataSourceModels()
         {
-             return Datasources;          
+            return Datasources;
+        }
+
+        public void DeleteDataSource(CurrencyDataSourceModel source)
+        {
+            var itemToRemove = _dataSources.Where(x => x.CurrencyDataSourceModelId == source.CurrencyDataSourceModelId)
+                .FirstOrDefault();
+
+            if(itemToRemove != null)
+            {
+                _dataSources.Remove(itemToRemove);
+            }
+        }
+
+        public void UpdateDataSources(CurrencyDataSourceModel source)
+        {
+            var item = _dataSources.Where(x => x.CurrencyDataSourceModelId == source.CurrencyDataSourceModelId)
+                .FirstOrDefault();
         }
     }
 }

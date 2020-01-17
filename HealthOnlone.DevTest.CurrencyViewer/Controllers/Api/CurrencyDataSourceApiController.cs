@@ -50,5 +50,39 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Controllers.Api
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }            
         }
+
+        [HttpPost]
+        [Route("datasources")]
+        public IActionResult UpdateDataSource([FromBody] CurrencyDataSourceModel source)
+        {
+            try
+            {
+                _repository.UpdateDataSource(source);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Error, "Error in CreateDataSource", e);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpDelete]
+        [Route("datasoureces")]
+        public IActionResult DeleteDataSource([FromBody] CurrencyDataSourceModel source)
+        {
+            try
+            {
+                _repository.DeleteDatasource(source);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Error, "Error in CreateDataSource", e);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

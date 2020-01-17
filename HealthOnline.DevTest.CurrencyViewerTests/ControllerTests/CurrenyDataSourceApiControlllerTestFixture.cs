@@ -12,17 +12,12 @@ namespace Tests
     [TestFixture]
     public class CurrenyDataSourceApiControlllerTestFixture
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
-        public void Can_get_list_of_data_providers_from_api_controller ()
+        public void Can_get_list_of_data_providers_from_api_controller()
         {
             // Arrange
             var loggerMock = new Mock<ILogger<CurrencyDataSourceApiController>>();
-        
+
             var controllerUnderTest = new CurrencyDataSourceApiController(
                 new Repository(),
                 loggerMock.Object
@@ -36,5 +31,24 @@ namespace Tests
             Assert.That(modelReturned, Is.Not.Null);
             Assert.That(modelReturned.Count, Is.EqualTo(2));
         }
+
+        [Test]
+        public void can_save_new_currency_source()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void can_remove_currency_souce()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void can_update_a_currency_source()
+        {
+            Assert.Fail();
+        }
+
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HealthOnlone.DevTest.CurrencyViewer.Models
 {
@@ -10,6 +7,11 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Models
     /// </summary>
     public class CurrencyDataSourceModel
     {
+        /// <summary>
+        /// The id for the instance
+        /// </summary>
+        public Guid CurrencyDataSourceModelId { get; set; }
+
         /// <summary>
         /// The name of the currency data provider
         /// </summary>
