@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthOnline.DevTest.Curren
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthOnline.DevTest.CurrencyViewerTests", "HealthOnline.DevTest.CurrencyViewerTests\HealthOnline.DevTest.CurrencyViewerTests.csproj", "{F0ABD399-A75E-42DF-85B9-155FF7527F83}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{940CA8E5-09E5-4446-8398-E53A2681837A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
