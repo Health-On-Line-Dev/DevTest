@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using HealthOnlone.DevTest.CurrencyViewer.Models;
+using HealthOnline.DevTest.CurrencyViewer.Models;
 
-namespace HealthOnlone.DevTest.CurrencyViewer.Controllers
+namespace HealthOnline.DevTest.CurrencyViewer.Controllers
 {
     public class HomeController : Controller
     {

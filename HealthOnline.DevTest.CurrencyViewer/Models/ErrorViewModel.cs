@@ -1,6 +1,4 @@
-using System;
-
-namespace HealthOnlone.DevTest.CurrencyViewer.Models
+namespace HealthOnline.DevTest.CurrencyViewer.Models
 {
     public class ErrorViewModel
     {

@@ -1,7 +1,7 @@
-﻿using HealthOnlone.DevTest.CurrencyViewer.Models;
+﻿using HealthOnline.DevTest.CurrencyViewer.Models;
 using System.Collections.Generic;
 
-namespace HealthOnlone.DevTest.CurrencyViewer.Services
+namespace HealthOnline.DevTest.CurrencyViewer.Services
 {
     /// <summary>
     /// Interface for the main repository

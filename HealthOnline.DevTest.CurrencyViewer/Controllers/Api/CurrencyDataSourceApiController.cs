@@ -1,12 +1,12 @@
-﻿using HealthOnlone.DevTest.CurrencyViewer.Models;
-using HealthOnlone.DevTest.CurrencyViewer.Services;
+﻿using HealthOnline.DevTest.CurrencyViewer.Models;
+using HealthOnline.DevTest.CurrencyViewer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 
-namespace HealthOnlone.DevTest.CurrencyViewer.Controllers.Api
+namespace HealthOnline.DevTest.CurrencyViewer.Controllers.Api
 {
     /// <summary>
     /// A controller that handles CRUD operations for currency data sources
@@ -57,6 +57,12 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Controllers.Api
         {
             try
             {
+                // if the provided source doesn't have an id provide it with the empty GUID to signify it is new
+                if(source.CurrencyDataSourceModelId == null)
+                {
+                    source.CurrencyDataSourceModelId = Guid.Empty;
+                }
+
                 _repository.UpdateDataSource(source);
 
                 return Ok();
@@ -74,7 +80,7 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Controllers.Api
         {
             try
             {
-                _repository.DeleteDatasource(source);
+                _repository.DeleteDataSource(source);
 
                 return Ok();
             }

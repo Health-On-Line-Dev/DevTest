@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HealthOnlone.DevTest.CurrencyViewer.Models
+namespace HealthOnline.DevTest.CurrencyViewer.Models
 {
     /// <summary>
     /// POCO for representing a data source

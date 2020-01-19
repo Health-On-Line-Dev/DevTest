@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HealthOnlone.DevTest.CurrencyViewer.Models;
+using HealthOnline.DevTest.CurrencyViewer.Models;
 
-namespace HealthOnlone.DevTest.CurrencyViewer.Services
+namespace HealthOnline.DevTest.CurrencyViewer.Services
 {
     /// <summary>
     /// The repository for accessing data
@@ -25,12 +25,14 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Services
                     {
                         new CurrencyDataSourceModel
                         {
+                            CurrencyDataSourceModelId = Guid.NewGuid(),
                             DataSourceName = "Currency",
                             DataSourceUrl = "localhost:44374/api/v1/Currency"
                         },
 
                         new CurrencyDataSourceModel
                         {
+                            CurrencyDataSourceModelId = Guid.NewGuid(),
                             DataSourceName = "Exchange",
                             DataSourceUrl = "localhost:44382/api/v1/Exchange"
                         }
@@ -61,10 +63,28 @@ namespace HealthOnlone.DevTest.CurrencyViewer.Services
             }
         }
 
-        public void UpdateDataSources(CurrencyDataSourceModel source)
+        /// <summary>
+        /// Updates the repository of data sources. This method can create or update based on existing data
+        /// </summary>
+        /// <param name="source">The source to update or create</param>
+        public void UpdateDataSource(CurrencyDataSourceModel source)
         {
-            var item = _dataSources.Where(x => x.CurrencyDataSourceModelId == source.CurrencyDataSourceModelId)
+            // find out if the item already exists
+            var exitsingItem = Datasources.Where(x => x.CurrencyDataSourceModelId == source.CurrencyDataSourceModelId)
                 .FirstOrDefault();
+
+            if(exitsingItem == null)
+            {
+                // the data source is brand new
+                // in a future version the ORM would manage the id, for now we will manage it here
+                source.CurrencyDataSourceModelId = Guid.NewGuid();
+
+                Datasources.Add(source);
+            } else
+            {
+                exitsingItem.DataSourceName = source.DataSourceName;
+                exitsingItem.DataSourceUrl = source.DataSourceUrl;
+            }            
         }
     }
 }
