@@ -7,6 +7,8 @@ This document summaries the follow on work that would take place if this project
 - Add Identity authentication to protect the create/update/delete apis (the get would accept anonymous requests)
 - Set up a build server for continuous integration and deployment. 
 - Add persistence to logging
+- Add data validation to the Create/Update/Delete APIs
+- Improve error handling on the front end
 
 ## Should do
 - Localise all text so that it could be displayed in any language
@@ -15,6 +17,8 @@ This document summaries the follow on work that would take place if this project
 - Encapsulate the javascript that does the calculations and the javascript that manages view /  navigation for better seperation of concerns
 - Work with a UX designer on the front end
 - Add automated tests for the front end, this could be done through javascript tests using Jasmine and or browser level tests with Selenium (Or Katalon Studio)
+- Clean up remaining boiler plate code fromt the default new MVC project
+- Improve robustness of the data mapping in the front end view model, currently assumes keys are in the same order for each data source
 
 ## Could do
 Use Flag graphics and currency symbols to represent each currency
